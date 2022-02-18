@@ -1,11 +1,53 @@
 .App {
   text-align: center;
+  font-family: 'Poppins,Roboto,sans-serif';
+}
+
+*{
+  box-sizing: border-box;
+  margin: 0;
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
+
+.navbar{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: black;
+  padding: 1rem 0;
+  justify-content: center;
+}
+
+.navbar-logo{
+  font-size: 1.5rem;
+  width: 40%;
+  color: rgb(20,241,149);
+  display: flex;
+  justify-content: start;
+}
+
+.navbar-connect{
+  width: 40%;
+  display: flex;
+  justify-content: end;
+}
+
+.connect{
+  font-size: 1rem;
+  padding: 0.75rem 1rem;
+  max-width: 20rem;
+  border-radius: 0.5rem;
+  border: none;
+  background-color: rgb(20,241,149);
+  color: black;
+  cursor: pointer;
+}
+
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

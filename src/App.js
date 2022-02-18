@@ -1,23 +1,61 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import "./App.css";
 
-function App() {
+const App = () => {
+  const [address, setAddress] = useState(null);
+
+  const checkIfWalletConnected = async () => {
+    try {
+      const { solana } = window;
+
+      if (solana) {
+        if (solana.isPhantom) {
+          //connect to wallet and store the address
+          const response = await solana.connect({});
+
+          setAddress(response.publicKey.toString());
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const connectWallet = async () => {
+    const {solana} = window;
+
+    if(solana){
+      const response = await solana.connect();
+      setAddress(response.publicKey.toString());
+    }
+  }
+
+  useEffect(() => {
+    const onLoad = async () => {
+      await checkIfWalletConnected();
+    };
+    window.addEventListener("load", onLoad);
+    return () => window.removeEventListener("load", onLoad);
+  });
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="navbar">
+        <div className="navbar-logo">
+          <h4>Solana Dapp</h4>
+        </div>
+        <div className="navbar-connect">
+          {
+            !address ? (
+              <button onClick={connectWallet} className="connect">Connect Wallet</button>
+            ):
+            (
+              <button onClick={connectWallet} className="connect">Connected</button>
+            )
+          }
+         
+        </div>
+      </div>
     </div>
   );
 }
